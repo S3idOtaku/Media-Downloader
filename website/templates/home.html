@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<div class="center-screen">
+  <h1><span class="bi-collection-play-fill"></span> Media Downloader</h1>
+  <form method="POST">
+    <input
+      type="url"
+      name="url"
+      class="form-control"
+      placeholder="Enter video URL here......"
+      size="80"
+    />
+    <!--<button type="submit" class="btn btn-success mt-3"><span class="fa fa-arrow-down"></span> Video</button>-->
+    {% if user.is_authenticated %}
+    <button type="submit" name="uvideo" value="uvideo" class="btn btn-success mt-3"><span class="fa fa-file-movie-o"></span> Video</button>
+    <button type="submit" name="uaudio" value="uaudio" class="btn btn-success mt-3"><span class="fa fa-file-audio-o"></span> Audio</button>
+    {% else %}
+    <button type="submit" name="video" value="video" class="btn btn-success mt-3"><span class="fa fa-file-movie-o"></span> Video</button>
+    <button type="submit" name="audio" value="audio" class="btn btn-success mt-3"><span class="fa fa-file-audio-o"></span> Audio</button>
+    {% endif %}
+  </form>
+</div>
+{% endblock %}

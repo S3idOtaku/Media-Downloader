@@ -1,0 +1,63 @@
+{% extends "base.html" %} 
+{% block title %}History{% endblock %}
+
+{% block search %}
+<span class="navbar-text">
+  <form class="d-flex">
+    <input class="form-control me-2" style="background-color: #171D20; font-family:Arial, FontAwesome" placeholder="&#xF002; Search" type="search" id="myInput" onkeyup="myFunction()" aria-label="Search">
+  </form>
+</span>
+{% endblock %}
+
+{% block content %}
+<table id="myTable" class="table table-dark table-striped" align="center" style="width:95%; margin-top: 5%; ">
+  <tr>
+    <th scope="col">Title</th>
+    <th scope="col">URL</th>
+    <th scope="col">Date</th>
+    <th scope="col">Size</th>
+    <th scope="col">File Type</th>
+    <th scope="col"></th>
+  </tr>
+  <tr>
+    {% for history in user.historys %}
+    <td>{{ history.title }}</td>
+    <td>
+      {{ history.url }}
+      <a href="{{history.url}} " target="_blank" class="btn btn-warning btn-sm" tabindex="-1" role="button" aria-disabled="true">
+        <i class="fa fa-angle-double-right"></i>
+      </a>
+    </td>
+    <td>{{ history.date }}</td>
+    <td>{{ history.size }}</td>
+    <td>{{ history.type }}</td>
+    <td>
+      <button type="button" class="btn-close" onClick="deleteHistory({{ history.id }})">
+      <span aria-hidden="true"></span>
+      </button>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<script>
+  function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+</script>
+{% endblock %}
